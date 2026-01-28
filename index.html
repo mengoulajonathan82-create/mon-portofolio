@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jonathan MENGOULA </title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00ff41;
+            --secondary: #0b1420;
+            --accent: #64ffda;
+            --text: #ccd6f6;
+            --bg-dark: #0a0e27;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 255, 65, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+        }
+
+        .hero h2 {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: 2px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+            box-shadow: 0 0 20px var(--primary);
+        }
+
+        .btn-secondary {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent);
+        }
+
+        /* Matrix Background */
+        #matrix-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+        }
+
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .skill-item {
+            background: rgba(100, 255, 218, 0.1);
+            padding: 0.5rem 1rem;
+            border-left: 3px solid var(--accent);
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: rgba(10, 25, 47, 0.7);
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            padding: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 255, 65, 0.3);
+        }
+
+        .project-card h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            background: rgba(0, 255, 65, 0.1);
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            font-size: 0.85rem;
+            border: 1px solid var(--primary);
+        }
+
+        .project-links {
+            margin-top: 1rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .project-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Certifications */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .cert-card {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(100, 255, 218, 0.1));
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid var(--primary);
+        }
+
+        .cert-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .cert-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: var(--primary);
+        }
+
+        .timeline-item {
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-content {
+            background: rgba(10, 25, 47, 0.7);
+            padding: 2rem;
+            border: 1px solid var(--accent);
+            width: calc(50% - 30px);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: auto;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 15px;
+            height: 15px;
+            background: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        /* Contact Section */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: rgba(10, 25, 47, 0.5);
+            border: 1px solid var(--accent);
+            color: var(--text);
+            font-family: inherit;
+        }
+
+        .contact-form textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(10, 25, 47, 0.9);
+            border-top: 1px solid rgba(0, 255, 65, 0.1);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            color: var(--text);
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 0;
+            }
+
+            .timeline-content {
+                width: calc(100% - 30px);
+                margin-left: 30px !important;
+            }
+
+            .timeline-item::before {
+                left: 0;
+                transform: none;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">Portofolio</div>
+        <ul>
+            <li><a href="#home">Accueil</a></li>
+            <li><a href="#about">À propos</a></li>
+            <li><a href="#about">Formations</a></li>
+            <li><a href="#projects">Projets</a></li>
+            <li><a href="#certifications">Certifications</a></li>
+            <li><a href="#experience">Expérience</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <canvas id="matrix-bg"></canvas>
+        <div class="hero-content fade-in">
+            <h1>Jonathan MENGOULA</h1>
+            <h2>Étudiant en Cybersécurité et Administration Réseau</h2>
+            <p>Spécialisé en sécurité des infrastructures, architecture VPN et Zero Trust. 
+               Passionné par la protection des systèmes d'information contre les cybermenaces.</p>
+            <div class="cta-buttons">
+                <a href="#projects" class="btn">Voir mes projets</a>
+                <a href="#contact" class="btn btn-secondary">Me contacter</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>À propos de moi</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>Je suis étudiant en cybersécurité et administration réseau, actuellement en préparation de la certification <strong>CCNA</strong>.</p>
+                <p>Durant mon stage académique, j'ai travaillé sur l'<strong>optimisation et le hardening d'une infrastructure VPN hybride (IPsec et WireGuard)</strong> avec intégration du modèle <strong>Zero Trust</strong>.</p>
+                <p>Ma passion pour la cybersécurité me pousse à apprendre constamment et à relever de nouveaux défis techniques.</p>
+                
+                <div class="skills">
+                    <div class="skill-item">🔒 Network Security</div>
+                    <div class="skill-item">🌐 VPN (IPsec, WireGuard)</div>
+                    <div class="skill-item">🛡️ Zero Trust Architecture</div>
+                    <div class="skill-item">🔥 Firewalls & IDS/IPS</div>
+                    <div class="skill-item">🐧 Linux Administration</div>
+                    <div class="skill-item">🔐 Cryptographie</div>
+                    <div class="skill-item">📊 SIEM & Monitoring</div>
+                    <div class="skill-item">🐍 Python & Bash</div>
+                </div>
+            </div>
+            <div class="about-image">
+                <svg width="400" height="400" viewBox="0 0 400 400">
+                    <defs>
+                        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#00ff41;stop-opacity:0.8" />
+                            <stop offset="100%" style="stop-color:#64ffda;stop-opacity:0.8" />
+                        </linearGradient>
+                    </defs>
+                    <circle cx="200" cy="200" r="150" fill="none" stroke="url(#grad1)" stroke-width="2" opacity="0.3"/>
+                    <circle cx="200" cy="200" r="120" fill="none" stroke="url(#grad1)" stroke-width="2" opacity="0.4"/>
+                    <circle cx="200" cy="200" r="90" fill="none" stroke="url(#grad1)" stroke-width="2" opacity="0.5"/>
+                    <path d="M 200 80 L 200 120 M 200 280 L 200 320 M 80 200 L 120 200 M 280 200 L 320 200" stroke="#00ff41" stroke-width="2"/>
+                    <circle cx="200" cy="200" r="30" fill="url(#grad1)" opacity="0.6"/>
+                    <text x="200" y="210" text-anchor="middle" fill="#0a0e27" font-size="20" font-weight="bold">SEC</text>
+                </svg>
+            </div>
+        </div>
+    </section>
+    <!-- Formations -->
+    <section id="Formations">
+        <h2> Ma Formation </h2>
+        <div class="cert-grid">
+            <div class="cert-card">
+                <div class="cert-icon">🎓</div>
+                <h3>Licence 1 : Réseau et sécurité</h3>
+                <p>Institut Superieure de Technologie et de Commerce</p>
+                <p style="opacity: 0.7; margin-top: 0.5rem;">2024-2025</p>
+            </div>
+            <div class="cert-card">
+                <div class="cert-icon">🔐</div>
+                <h3>CompTIA Security+</h3>
+                <p>Security Fundamentals</p>
+                <p style="opacity: 0.7; margin-top: 0.5rem;">Prévu 2026</p>
+            </div>
+            <div class="cert-card">
+                <div class="cert-icon">🐧</div>
+                <h3>LPIC-1</h3>
+                <p>Linux Professional Institute</p>
+                <p style="opacity: 0.7; margin-top: 0.5rem;">En préparation</p>
+            </div>
+            <div class="cert-card">
+                <div class="cert-icon">🛡️</div>
+                <h3>CEH</h3>
+                <p>Certified Ethical Hacker</p>
+                <p style="opacity: 0.7; margin-top: 0.5rem;">Objectif 2026</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2>Mes Projets réalisés</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <h3>Infrastructure VPN Hybride</h3>
+                <p>Déploiement d'une architecture VPN combinant IPsec et WireGuard avec intégration du modèle Zero Trust pour sécuriser les accès distants.</p>
+                <div class="project-tags">
+                    <span class="tag">IPsec</span>
+                    <span class="tag">WireGuard</span>
+                    <span class="tag">Zero Trust</span>
+                    <span class="tag">Linux</span>
+                </div>
+                <div class="project-links">
+                    <a href="#" class="project-link">→ GitHub</a>
+                    <a href="#" class="project-link">→ Documentation</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>Laboratoire de Sécurité Réseau</h3>
+                <p>Environnement de test virtuel avec pfSense, pour simulation d'attaques et configuration de défenses multicouches. incluant la supervision.</p>
+                <div class="project-tags">
+                    <span class="tag">Proxmox</span>
+                    <span class="tag">pfSense</span>
+                    <span class="tag">Vmware workstation pro</span>
+                    <span class="tag">Wazuh</span>
+                    <span class="tag">Nagios</span>
+                </div>
+                <div class="project-links">
+                    <a href="#" class="project-link">→ GitHub</a>
+                    <a href="#" class="project-link">→ Détails</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>Analyse Trafic Réseau</h3>
+                <p>Outil Python pour capture et analyse de trafic réseau avec détection d'anomalies et identification de patterns malveillants.</p>
+                <div class="project-tags">
+                    
+                    <span class="tag">Wireshark</span>
+                    
+                </div>
+                <div class="project-links">
+                    <a href="#" class="project-link">→ GitHub</a>
+                    <a href="#" class="project-link">→ Demo</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>Scripts Automation Sécurité</h3>
+                <p>J'apprends encore à collecter  des scripts Bash pour automatisation de tâches sécurité : hardening, scanning, monitoring.</p>
+                <div class="project-tags">
+                    <span class="tag">Bash</span>
+                    
+                    <span class="tag">Automation</span>
+                   
+                </div>
+                <div class="project-links">
+                    <a href="#" class="project-link">→ GitHub</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>Pentest Lab Environment</h3>
+                <p>Infrastructure de test d'intrusion avec machines vulnérables (DVWA, Metasploitable) pour pratique ethical hacking.</p>
+                <div class="project-tags">
+                    <span class="tag">Kali Linux</span>
+                    <span class="tag">Metasploit</span>
+                   
+                    <span class="tag">Nmap</span>
+                </div>
+                <div class="project-links">
+                    <a href="#" class="project-link">→ GitHub</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>Documentation Technique</h3>
+                <p>Guides et tutoriels sur configuration sécurisée de services réseau, hardening Linux, et best practices cybersécurité.</p>
+                <div class="project-tags">
+                    <span class="tag">Markdown</span>
+                    <span class="tag">Documentation</span>
+                    <span class="tag">Tutoriels</span>
+                </div>
+                <div class="project-links">
+                    <a href="#" class="project-link">→ Wiki</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications -->
+    <section id="certifications">
+        <h2> Mes Certifications </h2>
+        <div class="cert-grid">
+            <div class="cert-card">
+                <div class="cert-icon">🎓</div>
+                <h3>CCNA</h3>
+                <p>Cisco Certified Network Associate</p>
+                <p style="opacity: 0.7; margin-top: 0.5rem;">En cours...</p>
+            </div>
+            <div class="cert-card">
+                <div class="cert-icon">🔐</div>
+                <h3>CompTIA Security+</h3>
+                <p>Security Fundamentals</p>
+                <p style="opacity: 0.7; margin-top: 0.5rem;">Prévu 2026</p>
+            </div>
+            <div class="cert-card">
+                <div class="cert-icon">🐧</div>
+                <h3>LPIC-1</h3>
+                <p>Linux Professional Institute</p>
+                <p style="opacity: 0.7; margin-top: 0.5rem;">En préparation</p>
+            </div>
+            <div class="cert-card">
+                <div class="cert-icon">🛡️</div>
+                <h3>CEH</h3>
+                <p>Certified Ethical Hacker</p>
+                <p style="opacity: 0.7; margin-top: 0.5rem;">Objectif 2026</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Timeline -->
+    <section id="experience">
+        <h2> Expérience</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>Stage - Sécurité Infrastructures</h3>
+                    <p><strong>ISARE</strong> | 2024-2025</p>
+                    <p>Optimisation et hardening d'infrastructure VPN hybride (IPsec/WireGuard) avec intégration Zero Trust. Configuration de politiques d'accès granulaires et authentification multifactorielle.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>Études - Cybersécurité</h3>
+                    <p><strong>ISTC</strong> | 2023-Présent</p>
+                    <p>Formation spécialisée en sécurité des réseaux, cryptographie, ethical hacking et administration systèmes. Projets académiques sur architecture sécurisée et détection d'intrusions.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>Formation CCNA</h3>
+                    <p><strong>Cisco Networking Academy</strong> | 2024</p>
+                    <p>Préparation intensive certification CCNA : routing & switching, sécurité réseau, automation avec Python. Pratique quotidienne sur Packet Tracer et GNS3.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2> Contact</h2>
+        <div class="contact-content">
+            <form class="contact-form" onsubmit="return false;">
+                <input type="text" placeholder="Nom" required>
+                <input type="email" placeholder="Email" required>
+                <input type="text" placeholder="Sujet">
+                <textarea placeholder="Message" required></textarea>
+                <button type="submit" class="btn">Envoyer</button>
+            </form>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <div>
+                        <h4>Email</h4>
+                        <p>mengoulajonathan82@gmail.com</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">💼</div>
+                    <div>
+                        <h4>LinkedIn</h4>
+                        <p>lien du profil link</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">💻</div>
+                    <div>
+                        <h4>GitHub</h4>
+                        <p>github.com/votre-username</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div>
+                        <h4>Localisation</h4>
+                        <p>Yaounde-Cameroun</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="#">GitHub</a>
+            <a href="#">LinkedIn</a>
+            <a href="#">Twitter</a>
+            <a href="#">Email</a>
+        </div>
+        <p>&copy; 2026 Jonathan MENGOULA | Cybersécurité & Réseau</p>
+        <p style="opacity: 0.5; margin-top: 0.5rem;">Conçu avec passion pour la sécurité informatique</p>
+    </footer>
+
+    <script>
+        // Matrix Rain Effect
+        const canvas = document.getElementById('matrix-bg');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(10, 14, 39, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#00ff41';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 35);
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Responsive canvas
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
