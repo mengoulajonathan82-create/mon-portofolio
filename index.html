@@ -3,721 +3,958 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jonathan MENGOULA </title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #00ff41;
-            --secondary: #0b1420;
-            --accent: #64ffda;
-            --text: #ccd6f6;
-            --bg-dark: #0a0e27;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--bg-dark);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(10, 14, 39, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 5%;
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(0, 255, 65, 0.1);
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary);
-            text-shadow: 0 0 10px var(--primary);
-        }
-
-        nav ul {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        nav a {
-            color: var(--text);
-            text-decoration: none;
-            transition: color 0.3s;
-            position: relative;
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s;
-        }
-
-        nav a:hover::after {
-            width: 100%;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0 5%;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            z-index: 1;
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            text-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
-        }
-
-        .hero h2 {
-            font-size: 2rem;
-            color: var(--accent);
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.8;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            border: 2px solid var(--primary);
-            background: transparent;
-            color: var(--primary);
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn:hover {
-            background: var(--primary);
-            color: var(--bg-dark);
-            box-shadow: 0 0 20px var(--primary);
-        }
-
-        .btn-secondary {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        .btn-secondary:hover {
-            background: var(--accent);
-        }
-
-        /* Matrix Background */
-        #matrix-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.1;
-        }
-
-        /* Section Styles */
-        section {
-            padding: 5rem 5%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        h2 {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 3rem;
-            text-align: center;
-        }
-
-        /* About Section */
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .about-text p {
-            margin-bottom: 1rem;
-        }
-
-        .skills {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .skill-item {
-            background: rgba(100, 255, 218, 0.1);
-            padding: 0.5rem 1rem;
-            border-left: 3px solid var(--accent);
-        }
-
-        /* Projects Section */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .project-card {
-            background: rgba(10, 25, 47, 0.7);
-            border: 1px solid rgba(100, 255, 218, 0.2);
-            padding: 2rem;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0, 255, 65, 0.3);
-        }
-
-        .project-card h3 {
-            color: var(--accent);
-            margin-bottom: 1rem;
-        }
-
-        .project-tags {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-        }
-
-        .tag {
-            background: rgba(0, 255, 65, 0.1);
-            color: var(--primary);
-            padding: 0.3rem 0.8rem;
-            font-size: 0.85rem;
-            border: 1px solid var(--primary);
-        }
-
-        .project-links {
-            margin-top: 1rem;
-            display: flex;
-            gap: 1rem;
-        }
-
-        .project-link {
-            color: var(--accent);
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
-
-        .project-link:hover {
-            text-decoration: underline;
-        }
-
-        /* Certifications */
-        .cert-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .cert-card {
-            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(100, 255, 218, 0.1));
-            padding: 2rem;
-            text-align: center;
-            border: 1px solid var(--primary);
-        }
-
-        .cert-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .cert-card h3 {
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-
-        /* Timeline */
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 2px;
-            height: 100%;
-            background: var(--primary);
-        }
-
-        .timeline-item {
-            margin-bottom: 3rem;
-            position: relative;
-        }
-
-        .timeline-content {
-            background: rgba(10, 25, 47, 0.7);
-            padding: 2rem;
-            border: 1px solid var(--accent);
-            width: calc(50% - 30px);
-        }
-
-        .timeline-item:nth-child(odd) .timeline-content {
-            margin-left: auto;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 15px;
-            height: 15px;
-            background: var(--primary);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--primary);
-        }
-
-        /* Contact Section */
-        .contact-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-        }
-
-        .contact-form input,
-        .contact-form textarea {
-            width: 100%;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            background: rgba(10, 25, 47, 0.5);
-            border: 1px solid var(--accent);
-            color: var(--text);
-            font-family: inherit;
-        }
-
-        .contact-form textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
-
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .contact-icon {
-            font-size: 2rem;
-            color: var(--primary);
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 2rem;
-            background: rgba(10, 25, 47, 0.9);
-            border-top: 1px solid rgba(0, 255, 65, 0.1);
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .social-links a {
-            color: var(--text);
-            font-size: 1.5rem;
-            transition: color 0.3s;
-        }
-
-        .social-links a:hover {
-            color: var(--primary);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            nav ul {
-                display: none;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .about-content,
-            .contact-content {
-                grid-template-columns: 1fr;
-            }
-
-            .timeline::before {
-                left: 0;
-            }
-
-            .timeline-content {
-                width: calc(100% - 30px);
-                margin-left: 30px !important;
-            }
-
-            .timeline-item::before {
-                left: 0;
-                transform: none;
-            }
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .fade-in {
-            animation: fadeIn 0.6s ease-out;
-        }
-    </style>
+    <title>Max | Portfolio Cyber-Sec</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Source+Code+Pro:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Boot Screen -->
+    <div id="boot-screen" class="boot-screen">
+        <div class="boot-terminal">
+            <pre id="boot-text" class="boot-text"></pre>
+            <span class="boot-cursor"></span>
+        </div>
+        <p class="boot-skip">Cliquez ou appuyez sur une touche pour passer</p>
+    </div>
+
+    <!-- Particle Background -->
+    <canvas id="particle-canvas" class="particle-canvas"></canvas>
+
+    <!-- Scanline Overlay -->
+    <div class="scanline-overlay"></div>
+
     <!-- Navigation -->
-    <nav>
-        <div class="logo">Portofolio</div>
-        <ul>
-            <li><a href="#home">Accueil</a></li>
-            <li><a href="#about">À propos</a></li>
-            <li><a href="#about">Formations</a></li>
-            <li><a href="#projects">Projets</a></li>
-            <li><a href="#certifications">Certifications</a></li>
-            <li><a href="#experience">Expérience</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
+    <nav id="navbar" class="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="nav-logo">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+                <span class="logo-text">LionKinG<span class="logo-highlight">.1972</span></span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="#hero" class="nav-link">Accueil</a></li>
+                <li><a href="#about" class="nav-link">À propos</a></li>
+                <li><a href="#skills" class="nav-link">Compétences</a></li>
+                <li><a href="#projects" class="nav-link">Projets</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+
+            <a href="./CV Professionnel Minimaliste Beige.pdf" class="nav-cta">
+                <svg class="cta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+                CV
+            </a>
+
+            <button class="mobile-menu-btn" id="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobile-menu">
+            <a href="#hero" class="mobile-link">Accueil</a>
+            <a href="#about" class="mobile-link">À propos</a>
+            <a href="#skills" class="mobile-link">Compétences</a>
+            <a href="#projects" class="mobile-link">Projets</a>
+            <a href="#contact" class="mobile-link">Contact</a>
+            <a href="./CV Professionnel Minimaliste Beige.pdf" class="mobile-cta">Télécharger CV</a>
+        </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero">
-        <canvas id="matrix-bg"></canvas>
-        <div class="hero-content fade-in">
-            <h1>Jonathan MENGOULA</h1>
-            <h2>Étudiant en Cybersécurité et Administration Réseau</h2>
-            <p>Spécialisé en sécurité des infrastructures, architecture VPN et Zero Trust. 
-               Passionné par la protection des systèmes d'information contre les cybermenaces.</p>
-            <div class="cta-buttons">
-                <a href="#projects" class="btn">Voir mes projets</a>
-                <a href="#contact" class="btn btn-secondary">Me contacter</a>
+    <section id="hero" class="hero">
+        <div class="hero-grid"></div>
+        <div class="hero-particles" id="hero-particles"></div>
+        <div class="hero-glow hero-glow-1"></div>
+        <div class="hero-glow hero-glow-2"></div>
+
+        <div class="hero-container">
+            <div class="hero-content">
+                <!-- Status Badge -->
+                <div class="status-badge">
+                    <span class="status-dot"></span>
+                    <span class="status-text">DISPONIBLE POUR STAGE</span>
+                </div>
+
+                <!-- Terminal -->
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                        <span class="terminal-title">LionKinG@1972:~</span>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="terminal-line">
+                            <svg class="terminal-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="4 17 10 11 4 5"></polyline>
+                                <line x1="12" y1="19" x2="20" y2="19"></line>
+                            </svg>
+                            <span>~</span>
+                            <span class="terminal-command">./init_profile.sh</span>
+                        </div>
+                        <div id="typewriter" class="typewriter"></div>
+                        <div id="hero-description" class="hero-description hidden">
+                            <p>Je suis un étudiant passionné par la cybersécurité et le développement web. J'aime relever des défis et apprendre de nouvelles technologies pour créer des solutions innovantes et sécurisées.</p>
+                            <div class="hero-buttons">
+                                <a href="#projects" class="btn btn-primary">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                    </svg>
+                                    Voir mes projets
+                                </a>
+                                <a href="#contact" class="btn btn-outline">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                                    </svg>
+                                    Me contacter
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats -->
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" data-count="2">0</span>+
+                        <span class="stat-label">Années d'études</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" data-count="10">0</span>+
+                        <span class="stat-label">Projets réalisés</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" data-count="1">0</span>
+                        <span class="stat-label">Certifications</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Avatar -->
+            <div class="hero-avatar">
+                <div class="avatar-glow"></div>
+                <div class="avatar-hexagon">
+                    <svg class="hexagon-border" viewBox="0 0 200 200">
+                        <polygon points="100,10 190,55 190,145 100,190 10,145 10,55" fill="none" stroke="#00ff41" stroke-width="2"/>
+                    </svg>
+                    <div class="avatar-image">
+                        <img src="./photo de profil.png" alt="Alex - Étudiant Cybersécurité">
+                        <div class="avatar-scan"></div>
+                    </div>
+                </div>
+                <div class="floating-badge badge-1">React</div>
+                <div class="floating-badge badge-2">Python</div>
+                <div class="floating-badge badge-3">Security+</div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+        </div>
+
+        <!-- Scanline -->
+        <div class="scanline"></div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="about-bg"></div>
+        
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span>À PROPOS</span>
+                </div>
+                <h2 class="section-title">Qui suis-<span class="highlight">je</span> ?</h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="about-grid">
+                <div class="about-left">
+                    <div class="about-image-wrapper">
+                        <div class="about-image-glow"></div>
+                        <div class="about-image">
+                            <img src="./photo de profil 1.png" alt="Alex au travail">
+                            <div class="about-image-overlay"></div>
+                            <span class="about-image-caption">// workspace.initialize()</span>
+                        </div>
+                    </div>
+
+                    <div class="info-cards">
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                            </div>
+                            <div class="info-content">
+                                <span class="info-label">Nom</span>
+                                <span class="info-value">Jonathan MENGOULA</span>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                            </div>
+                            <div class="info-content">
+                                <span class="info-label">Âge</span>
+                                <span class="info-value">22 ans</span>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                            </div>
+                            <div class="info-content">
+                                <span class="info-label">Localisation</span>
+                                <span class="info-value">Yaoundé, cameroun</span>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                    <polyline points="22,6 12,13 2,6"></polyline>
+                                </svg>
+                            </div>
+                            <div class="info-content">
+                                <span class="info-label">Email</span>
+                                <span class="info-value">mengoulajonathan82@gmail.com</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-right">
+                    <h3 class="about-title">Passionné par la <span class="highlight">sécurité informatique</span></h3>
+                    
+                    <div class="about-text">
+                        <p>Actuellement en deuxième année de Bachelor en Cybersécurité, je développe une expertise technique solide dans la protection des systèmes d'information et la détection des menaces.</p>
+                        <p>Ma passion pour la technologie a débuté très tôt, et c'est naturellement que je me suis orienté vers la cybersécurité, un domaine en constante évolution où chaque jour apporte de nouveaux défis.</p>
+                        <p>Je combine mes compétences en développement web avec ma formation en sécurité pour créer des applications robustes et sécurisées, en appliquant les meilleures pratiques dès la conception.</p>
+                    </div>
+
+                    <div class="soft-skills">
+                        <span class="soft-skills-label">// soft_skills.metrics</span>
+                        <div class="soft-skills-grid">
+                            <div class="soft-skill">
+                                <span class="soft-skill-value" data-count="98">0</span>%
+                                <span class="soft-skill-label">Motivation</span>
+                            </div>
+                            <div class="soft-skill">
+                                <span class="soft-skill-value" data-count="95">0</span>%
+                                <span class="soft-skill-label">Apprentissage</span>
+                            </div>
+                            <div class="soft-skill">
+                                <span class="soft-skill-value" data-count="90">0</span>%
+                                <span class="soft-skill-label">Travail d'équipe</span>
+                            </div>
+                            <div class="soft-skill">
+                                <span class="soft-skill-value" data-count="92">0</span>%
+                                <span class="soft-skill-label">Résolution</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="qualities">
+                        <div class="quality">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <circle cx="12" cy="12" r="6"></circle>
+                                <circle cx="12" cy="12" r="2"></circle>
+                            </svg>
+                            <h4>Objectif</h4>
+                            <p>Devenir expert en cybersécurité</p>
+                        </div>
+                        <div class="quality">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                            </svg>
+                            <h4>Apprentissage</h4>
+                            <p>Autodidacte et passionné</p>
+                        </div>
+                        <div class="quality">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="8" r="7"></circle>
+                                <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                            </svg>
+                            <h4>Certifications</h4>
+                            <p>En constante évolution</p>
+                        </div>
+                        <div class="quality">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                            </svg>
+                            <h4>Réactivité</h4>
+                            <p>Adaptation rapide aux menaces</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about">
-        <h2>À propos de moi</h2>
-        <div class="about-content">
-            <div class="about-text">
-                <p>Je suis étudiant en cybersécurité et administration réseau, actuellement en préparation de la certification <strong>CCNA</strong>.</p>
-                <p>Durant mon stage académique, j'ai travaillé sur l'<strong>optimisation et le hardening d'une infrastructure VPN hybride (IPsec et WireGuard)</strong> avec intégration du modèle <strong>Zero Trust</strong>.</p>
-                <p>Ma passion pour la cybersécurité me pousse à apprendre constamment et à relever de nouveaux défis techniques.</p>
-                
-                <div class="skills">
-                    <div class="skill-item">🔒 Network Security</div>
-                    <div class="skill-item">🌐 VPN (IPsec, WireGuard)</div>
-                    <div class="skill-item">🛡️ Zero Trust Architecture</div>
-                    <div class="skill-item">🔥 Firewalls & IDS/IPS</div>
-                    <div class="skill-item">🐧 Linux Administration</div>
-                    <div class="skill-item">🔐 Cryptographie</div>
-                    <div class="skill-item">📊 SIEM & Monitoring</div>
-                    <div class="skill-item">🐍 Python & Bash</div>
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <canvas id="skills-canvas" class="skills-canvas"></canvas>
+        
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                    </svg>
+                    <span>COMPÉTENCES</span>
+                </div>
+                <h2 class="section-title">Mes <span class="highlight">Compétences</span></h2>
+                <p class="section-subtitle">Sur le plan technique, je maîtrise un ensemble d'outils et technologies essentiels pour le développement et la sécurité des applications.</p>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="skills-filter">
+                <button class="filter-btn active" data-filter="all">Tous</button>
+                <button class="filter-btn" data-filter="security">Security</button>
+                <button class="filter-btn" data-filter="database">Database</button>
+                <button class="filter-btn" data-filter="system">System</button>
+                <button class="filter-btn" data-filter="tools">Outils</button>
+            </div>
+
+            <div class="skills-grid">
+                <div class="skill-card" data-category="frontend" data-level="90">
+                    <div class="skill-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="16 18 22 12 16 6"></polyline>
+                            <polyline points="8 6 2 12 8 18"></polyline>
+                        </svg>
+                    </div>
+                    <h3 class="skill-name">HTML/CSS</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 0%"></div>
+                    </div>
+                    <span class="skill-level">90%</span>
+                    <span class="skill-category">Frontend</span>
+                </div>
+
+                <div class="skill-card" data-category="frontend" data-level="85">
+                    <div class="skill-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                    </div>
+                    <h3 class="skill-name">JavaScript</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 0%"></div>
+                    </div>
+                    <span class="skill-level">85%</span>
+                    <span class="skill-category">Frontend</span>
+                </div>
+
+                <div class="skill-card" data-category="frontend" data-level="80">
+                    <div class="skill-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                    </div>
+                    <h3 class="skill-name">React</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 0%"></div>
+                    </div>
+                    <span class="skill-level">80%</span>
+                    <span class="skill-category">Frontend</span>
+                </div>
+
+                <div class="skill-card" data-category="backend" data-level="75">
+                    <div class="skill-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                            <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                            <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                            <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                        </svg>
+                    </div>
+                    <h3 class="skill-name">Node.js</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 0%"></div>
+                    </div>
+                    <span class="skill-level">75%</span>
+                    <span class="skill-category">Backend</span>
+                </div>
+
+                <div class="skill-card" data-category="backend" data-level="85">
+                    <div class="skill-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="4 17 10 11 4 5"></polyline>
+                            <line x1="12" y1="19" x2="20" y2="19"></line>
+                        </svg>
+                    </div>
+                    <h3 class="skill-name">Python</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 0%"></div>
+                    </div>
+                    <span class="skill-level">85%</span>
+                    <span class="skill-category">Backend</span>
+                </div>
+
+                <div class="skill-card" data-category="database" data-level="70">
+                    <div class="skill-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                        </svg>
+                    </div>
+                    <h3 class="skill-name">SQL</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 0%"></div>
+                    </div>
+                    <span class="skill-level">70%</span>
+                    <span class="skill-category">Database</span>
+                </div>
+
+                <div class="skill-card" data-category="tools" data-level="80">
+                    <div class="skill-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="6" y1="3" x2="6" y2="15"></line>
+                            <circle cx="18" cy="6" r="3"></circle>
+                            <circle cx="6" cy="18" r="3"></circle>
+                            <path d="M18 9a9 9 0 0 1-9 9"></path>
+                        </svg>
+                    </div>
+                    <h3 class="skill-name">Git</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 0%"></div>
+                    </div>
+                    <span class="skill-level">80%</span>
+                    <span class="skill-category">Tools</span>
+                </div>
+
+                <div class="skill-card" data-category="system" data-level="75">
+                    <div class="skill-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
+                            <rect x="9" y="9" width="6" height="6"></rect>
+                            <line x1="9" y1="1" x2="9" y2="4"></line>
+                            <line x1="15" y1="1" x2="15" y2="4"></line>
+                            <line x1="9" y1="20" x2="9" y2="23"></line>
+                            <line x1="15" y1="20" x2="15" y2="23"></line>
+                            <line x1="20" y1="9" x2="23" y2="9"></line>
+                            <line x1="20" y1="14" x2="23" y2="14"></line>
+                            <line x1="1" y1="9" x2="4" y2="9"></line>
+                            <line x1="1" y1="14" x2="4" y2="14"></line>
+                        </svg>
+                    </div>
+                    <h3 class="skill-name">Linux</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 0%"></div>
+                    </div>
+                    <span class="skill-level">75%</span>
+                    <span class="skill-category">System</span>
+                </div>
+
+                <div class="skill-card" data-category="security" data-level="70">
+                    <div class="skill-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="skill-name">Sécurité Web</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 0%"></div>
+                    </div>
+                    <span class="skill-level">70%</span>
+                    <span class="skill-category">Security</span>
+                </div>
+
+                <div class="skill-card" data-category="security" data-level="65">
+                    <div class="skill-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="skill-name">Cryptographie</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 0%"></div>
+                    </div>
+                    <span class="skill-level">65%</span>
+                    <span class="skill-category">Security</span>
+                </div>
+
+                <div class="skill-card" data-category="security" data-level="60">
+                    <div class="skill-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                    </div>
+                    <h3 class="skill-name">Pentesting</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 0%"></div>
+                    </div>
+                    <span class="skill-level">60%</span>
+                    <span class="skill-category">Security</span>
+                </div>
+
+                <div class="skill-card" data-category="system" data-level="70">
+                    <div class="skill-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="skill-name">Réseaux</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 0%"></div>
+                    </div>
+                    <span class="skill-level">70%</span>
+                    <span class="skill-category">System</span>
                 </div>
             </div>
-            <div class="about-image">
-                <svg width="400" height="400" viewBox="0 0 400 400">
-                    <defs>
-                        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#00ff41;stop-opacity:0.8" />
-                            <stop offset="100%" style="stop-color:#64ffda;stop-opacity:0.8" />
-                        </linearGradient>
-                    </defs>
-                    <circle cx="200" cy="200" r="150" fill="none" stroke="url(#grad1)" stroke-width="2" opacity="0.3"/>
-                    <circle cx="200" cy="200" r="120" fill="none" stroke="url(#grad1)" stroke-width="2" opacity="0.4"/>
-                    <circle cx="200" cy="200" r="90" fill="none" stroke="url(#grad1)" stroke-width="2" opacity="0.5"/>
-                    <path d="M 200 80 L 200 120 M 200 280 L 200 320 M 80 200 L 120 200 M 280 200 L 320 200" stroke="#00ff41" stroke-width="2"/>
-                    <circle cx="200" cy="200" r="30" fill="url(#grad1)" opacity="0.6"/>
-                    <text x="200" y="210" text-anchor="middle" fill="#0a0e27" font-size="20" font-weight="bold">SEC</text>
-                </svg>
-            </div>
-        </div>
-    </section>
-    <!-- Formations -->
-    <section id="Formations">
-        <h2> Ma Formation </h2>
-        <div class="cert-grid">
-            <div class="cert-card">
-                <div class="cert-icon">🎓</div>
-                <h3>Licence 1 : Réseau et sécurité</h3>
-                <p>Institut Superieure de Technologie et de Commerce</p>
-                <p style="opacity: 0.7; margin-top: 0.5rem;">2024-2025</p>
-            </div>
-            <div class="cert-card">
-                <div class="cert-icon">🔐</div>
-                <h3>CompTIA Security+</h3>
-                <p>Security Fundamentals</p>
-                <p style="opacity: 0.7; margin-top: 0.5rem;">Prévu 2026</p>
-            </div>
-            <div class="cert-card">
-                <div class="cert-icon">🐧</div>
-                <h3>LPIC-1</h3>
-                <p>Linux Professional Institute</p>
-                <p style="opacity: 0.7; margin-top: 0.5rem;">En préparation</p>
-            </div>
-            <div class="cert-card">
-                <div class="cert-icon">🛡️</div>
-                <h3>CEH</h3>
-                <p>Certified Ethical Hacker</p>
-                <p style="opacity: 0.7; margin-top: 0.5rem;">Objectif 2026</p>
+
+            <div class="skills-summary">
+                <div class="summary-item">
+                    <span class="summary-value">12+</span>
+                    <span class="summary-label">Technologies</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-value">6</span>
+                    <span class="summary-label">Catégories</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-value">78%</span>
+                    <span class="summary-label">Moyenne</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-value">∞</span>
+                    <span class="summary-label">Envie d'apprendre</span>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Projects Section -->
-    <section id="projects">
-        <h2>Mes Projets réalisés</h2>
-        <div class="projects-grid">
-            <div class="project-card">
-                <h3>Infrastructure VPN Hybride</h3>
-                <p>Déploiement d'une architecture VPN combinant IPsec et WireGuard avec intégration du modèle Zero Trust pour sécuriser les accès distants.</p>
-                <div class="project-tags">
-                    <span class="tag">IPsec</span>
-                    <span class="tag">WireGuard</span>
-                    <span class="tag">Zero Trust</span>
-                    <span class="tag">Linux</span>
+    <section id="projects" class="projects">
+        <div class="projects-glow"></div>
+        
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    <span>PROJETS</span>
                 </div>
-                <div class="project-links">
-                    <a href="#" class="project-link">→ GitHub</a>
-                    <a href="#" class="project-link">→ Documentation</a>
-                </div>
+                <h2 class="section-title">Mes <span class="highlight">Projets</span></h2>
+                <p class="section-subtitle">Découvrez mes réalisations qui démontrent mes compétences en développement et en cybersécurité.</p>
+                <div class="section-divider"></div>
             </div>
 
-            <div class="project-card">
-                <h3>Laboratoire de Sécurité Réseau</h3>
-                <p>Environnement de test virtuel avec pfSense, pour simulation d'attaques et configuration de défenses multicouches. incluant la supervision.</p>
-                <div class="project-tags">
-                    <span class="tag">Proxmox</span>
-                    <span class="tag">pfSense</span>
-                    <span class="tag">Vmware workstation pro</span>
-                    <span class="tag">Wazuh</span>
-                    <span class="tag">Nagios</span>
+            <div class="projects-carousel">
+                <button class="carousel-btn carousel-prev" id="carousel-prev">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+
+                <div class="carousel-container" id="carousel-container">
+                    <div class="carousel-track" id="carousel-track">
+                        <!-- Project 1 -->
+                        <div class="project-card active">
+                            <div class="project-image">
+                                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop" alt="Portfolio Personnel">
+                                <div class="project-overlay"></div>
+                                <div class="project-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <h3 class="project-title">Portfolio Personnel</h3>
+                                <p class="project-description">Mon portfolio personnel développé avec React et TypeScript. Interface moderne avec thème cyber-sombre, animations fluides et design responsive.</p>
+                                <div class="project-tags">
+                                    <span class="project-tag">React</span>
+                                    <span class="project-tag">TypeScript</span>
+                                    <span class="project-tag">Tailwind CSS</span>
+                                    <span class="project-tag">Vite</span>
+                                </div>
+                                <div class="project-actions">
+                                    <a href="#" class="project-btn btn-primary">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                            <polyline points="15 3 21 3 21 9"></polyline>
+                                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                                        </svg>
+                                        Voir le projet
+                                    </a>
+                                    <a href="#" class="project-btn btn-outline">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                                        </svg>
+                                        Code source
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project 2 -->
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="https://images.unsplash.com/photo-1592210454359-9043f067919b?w=800&h=600&fit=crop" alt="ReactWeather">
+                                <div class="project-overlay"></div>
+                                <div class="project-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="16 18 22 12 16 6"></polyline>
+                                        <polyline points="8 6 2 12 8 18"></polyline>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <h3 class="project-title">ReactWeather</h3>
+                                <p class="project-description">Application météo temps réel utilisant les API météorologiques. Affichage des prévisions sur 7 jours avec interface futuriste et données détaillées.</p>
+                                <div class="project-tags">
+                                    <span class="project-tag">React</span>
+                                    <span class="project-tag">API REST</span>
+                                    <span class="project-tag">Chart.js</span>
+                                    <span class="project-tag">CSS Modules</span>
+                                </div>
+                                <div class="project-actions">
+                                    <a href="#" class="project-btn btn-primary">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                            <polyline points="15 3 21 3 21 9"></polyline>
+                                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                                        </svg>
+                                        Voir le projet
+                                    </a>
+                                    <a href="#" class="project-btn btn-outline">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                                        </svg>
+                                        Code source
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project 3 -->
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop" alt="Cyber-Gear E-commerce">
+                                <div class="project-overlay"></div>
+                                <div class="project-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="9" cy="21" r="1"></circle>
+                                        <circle cx="20" cy="21" r="1"></circle>
+                                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <h3 class="project-title">Cyber-Gear E-commerce</h3>
+                                <p class="project-description">Plateforme e-commerce complète avec panier d'achat, paiement sécurisé et gestion des commandes. Design inspiré de l'univers cyberpunk.</p>
+                                <div class="project-tags">
+                                    <span class="project-tag">Node.js</span>
+                                    <span class="project-tag">MongoDB</span>
+                                    <span class="project-tag">Express</span>
+                                    <span class="project-tag">JWT</span>
+                                </div>
+                                <div class="project-actions">
+                                    <a href="#" class="project-btn btn-primary">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                            <polyline points="15 3 21 3 21 9"></polyline>
+                                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                                        </svg>
+                                        Voir le projet
+                                    </a>
+                                    <a href="#" class="project-btn btn-outline">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                                        </svg>
+                                        Code source
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project 4 -->
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800&h=600&fit=crop" alt="Cybernetic Chronicles">
+                                <div class="project-overlay"></div>
+                                <div class="project-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <h3 class="project-title">Cybernetic Chronicles</h3>
+                                <p class="project-description">Blog technique sur la cybersécurité avec articles, tutoriels et analyses de vulnérabilités. Système de commentaires et newsletter intégrés.</p>
+                                <div class="project-tags">
+                                    <span class="project-tag">Next.js</span>
+                                    <span class="project-tag">Markdown</span>
+                                    <span class="project-tag">Prisma</span>
+                                    <span class="project-tag">PostgreSQL</span>
+                                </div>
+                                <div class="project-actions">
+                                    <a href="#" class="project-btn btn-primary">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                            <polyline points="15 3 21 3 21 9"></polyline>
+                                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                                        </svg>
+                                        Voir le projet
+                                    </a>
+                                    <a href="#" class="project-btn btn-outline">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                                        </svg>
+                                        Code source
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="project-links">
-                    <a href="#" class="project-link">→ GitHub</a>
-                    <a href="#" class="project-link">→ Détails</a>
-                </div>
+
+                <button class="carousel-btn carousel-next" id="carousel-next">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
             </div>
 
-            <div class="project-card">
-                <h3>Analyse Trafic Réseau</h3>
-                <p>Outil Python pour capture et analyse de trafic réseau avec détection d'anomalies et identification de patterns malveillants.</p>
-                <div class="project-tags">
-                    
-                    <span class="tag">Wireshark</span>
-                    
-                </div>
-                <div class="project-links">
-                    <a href="#" class="project-link">→ GitHub</a>
-                    <a href="#" class="project-link">→ Demo</a>
-                </div>
+            <div class="carousel-dots" id="carousel-dots">
+                <button class="dot active" data-index="0"></button>
+                <button class="dot" data-index="1"></button>
+                <button class="dot" data-index="2"></button>
+                <button class="dot" data-index="3"></button>
             </div>
 
-            <div class="project-card">
-                <h3>Scripts Automation Sécurité</h3>
-                <p>J'apprends encore à collecter  des scripts Bash pour automatisation de tâches sécurité : hardening, scanning, monitoring.</p>
-                <div class="project-tags">
-                    <span class="tag">Bash</span>
-                    
-                    <span class="tag">Automation</span>
-                   
-                </div>
-                <div class="project-links">
-                    <a href="#" class="project-link">→ GitHub</a>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <h3>Pentest Lab Environment</h3>
-                <p>Infrastructure de test d'intrusion avec machines vulnérables (DVWA, Metasploitable) pour pratique ethical hacking.</p>
-                <div class="project-tags">
-                    <span class="tag">Kali Linux</span>
-                    <span class="tag">Metasploit</span>
-                   
-                    <span class="tag">Nmap</span>
-                </div>
-                <div class="project-links">
-                    <a href="#" class="project-link">→ GitHub</a>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <h3>Documentation Technique</h3>
-                <p>Guides et tutoriels sur configuration sécurisée de services réseau, hardening Linux, et best practices cybersécurité.</p>
-                <div class="project-tags">
-                    <span class="tag">Markdown</span>
-                    <span class="tag">Documentation</span>
-                    <span class="tag">Tutoriels</span>
-                </div>
-                <div class="project-links">
-                    <a href="#" class="project-link">→ Wiki</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Certifications -->
-    <section id="certifications">
-        <h2> Mes Certifications </h2>
-        <div class="cert-grid">
-            <div class="cert-card">
-                <div class="cert-icon">🎓</div>
-                <h3>CCNA</h3>
-                <p>Cisco Certified Network Associate</p>
-                <p style="opacity: 0.7; margin-top: 0.5rem;">En cours...</p>
-            </div>
-            <div class="cert-card">
-                <div class="cert-icon">🔐</div>
-                <h3>CompTIA Security+</h3>
-                <p>Security Fundamentals</p>
-                <p style="opacity: 0.7; margin-top: 0.5rem;">Prévu 2026</p>
-            </div>
-            <div class="cert-card">
-                <div class="cert-icon">🐧</div>
-                <h3>LPIC-1</h3>
-                <p>Linux Professional Institute</p>
-                <p style="opacity: 0.7; margin-top: 0.5rem;">En préparation</p>
-            </div>
-            <div class="cert-card">
-                <div class="cert-icon">🛡️</div>
-                <h3>CEH</h3>
-                <p>Certified Ethical Hacker</p>
-                <p style="opacity: 0.7; margin-top: 0.5rem;">Objectif 2026</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Experience Timeline -->
-    <section id="experience">
-        <h2> Expérience</h2>
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <h3>Stage - Sécurité Infrastructures</h3>
-                    <p><strong>ISARE</strong> | 2024-2025</p>
-                    <p>Optimisation et hardening d'infrastructure VPN hybride (IPsec/WireGuard) avec intégration Zero Trust. Configuration de politiques d'accès granulaires et authentification multifactorielle.</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <h3>Études - Cybersécurité</h3>
-                    <p><strong>ISTC</strong> | 2023-Présent</p>
-                    <p>Formation spécialisée en sécurité des réseaux, cryptographie, ethical hacking et administration systèmes. Projets académiques sur architecture sécurisée et détection d'intrusions.</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <h3>Formation CCNA</h3>
-                    <p><strong>Cisco Networking Academy</strong> | 2024</p>
-                    <p>Préparation intensive certification CCNA : routing & switching, sécurité réseau, automation avec Python. Pratique quotidienne sur Packet Tracer et GNS3.</p>
-                </div>
+            <div class="projects-footer">
+                <a href="#" class="btn btn-outline">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                    </svg>
+                    Voir tous mes projets sur GitHub
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact">
-        <h2> Contact</h2>
-        <div class="contact-content">
-            <form class="contact-form" onsubmit="return false;">
-                <input type="text" placeholder="Nom" required>
-                <input type="email" placeholder="Email" required>
-                <input type="text" placeholder="Sujet">
-                <textarea placeholder="Message" required></textarea>
-                <button type="submit" class="btn">Envoyer</button>
-            </form>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <div class="contact-icon">📧</div>
-                    <div>
-                        <h4>Email</h4>
-                        <p>mengoulajonathan82@gmail.com</p>
+    <section id="contact" class="contact">
+        <div class="contact-glow-1"></div>
+        <div class="contact-glow-2"></div>
+        
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="4 17 10 11 4 5"></polyline>
+                        <line x1="12" y1="19" x2="20" y2="19"></line>
+                    </svg>
+                    <span>CONTACT</span>
+                </div>
+                <h2 class="section-title">Me <span class="highlight">Contacter</span></h2>
+                <p class="section-subtitle">Vous avez un projet ou une opportunité à me proposer ? N'hésitez pas à me contacter via le formulaire ci-dessous.</p>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-form-wrapper">
+                    <div class="terminal contact-terminal">
+                        <div class="terminal-header">
+                            <div class="terminal-dot red"></div>
+                            <div class="terminal-dot yellow"></div>
+                            <div class="terminal-dot green"></div>
+                            <span class="terminal-title">contact@alex-dev:~</span>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="terminal-welcome">
+                                <p class="terminal-line"><span class="terminal-prompt">$</span> ./contact_form.sh</p>
+                                <p>Bienvenue ! Remplissez le formulaire pour m'envoyer un message.</p>
+                                <p class="terminal-hint">Les champs marqués * sont obligatoires.</p>
+                            </div>
+
+                            <div id="command-history" class="command-history"></div>
+
+                            <form id="contact-form" class="contact-form">
+                                <div class="form-field">
+                                    <div class="field-label">
+                                        <span class="terminal-prompt">$</span>
+                                        <span>name</span>
+                                        <span class="required">*</span>
+                                    </div>
+                                    <div class="input-wrapper">
+                                        <input type="text" id="name" name="name" placeholder="Votre nom" required>
+                                        <span class="input-cursor"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-field">
+                                    <div class="field-label">
+                                        <span class="terminal-prompt">$</span>
+                                        <span>email</span>
+                                        <span class="required">*</span>
+                                    </div>
+                                    <div class="input-wrapper">
+                                        <input type="email" id="email" name="email" placeholder="votre@email.com" required>
+                                        <span class="input-cursor"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-field">
+                                    <div class="field-label">
+                                        <span class="terminal-prompt">$</span>
+                                        <span>message</span>
+                                        <span class="required">*</span>
+                                    </div>
+                                    <div class="input-wrapper">
+                                        <textarea id="message" name="message" rows="4" placeholder="Votre message..." required></textarea>
+                                        <span class="input-cursor"></span>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="submit-btn" id="submit-btn">
+                                    <svg class="btn-icon send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                    </svg>
+                                    <svg class="btn-icon loading hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="12" y1="2" x2="12" y2="6"></line>
+                                        <line x1="12" y1="18" x2="12" y2="22"></line>
+                                        <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line>
+                                        <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line>
+                                        <line x1="2" y1="12" x2="6" y2="12"></line>
+                                        <line x1="18" y1="12" x2="22" y2="12"></line>
+                                        <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line>
+                                        <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>
+                                    </svg>
+                                    <svg class="btn-icon check hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                    <span class="btn-text">Envoyer le message</span>
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-                <div class="contact-item">
-                    <div class="contact-icon">💼</div>
-                    <div>
-                        <h4>LinkedIn</h4>
-                        <p>lien du profil link</p>
+
+                <div class="contact-info">
+                    <h3 class="contact-info-title">Informations de <span class="highlight">contact</span></h3>
+                    
+                    <div class="contact-cards">
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                </svg>
+                            </div>
+                            <div class="contact-details">
+                                <span class="contact-label">Téléphone</span>
+                                <span class="contact-value">+33 6 12 34 56 78</span>
+                            </div>
+                        </div>
+
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                    <polyline points="22,6 12,13 2,6"></polyline>
+                                </svg>
+                            </div>
+                            <div class="contact-details">
+                                <span class="contact-label">Email</span>
+                                <span class="contact-value">alex.dev@email.com</span>
+                            </div>
+                        </div>
+
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                            </div>
+                            <div class="contact-details">
+                                <span class="contact-label">Localisation</span>
+                                <span class="contact-value">Paris, France</span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">💻</div>
-                    <div>
-                        <h4>GitHub</h4>
-                        <p>github.com/votre-username</p>
+
+                    <h3 class="contact-info-title">Réseaux <span class="highlight">sociaux</span></h3>
+                    
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="GitHub">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                                <rect x="2" y="9" width="4" height="12"></rect>
+                                <circle cx="4" cy="4" r="2"></circle>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                            </svg>
+                        </a>
                     </div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">📍</div>
-                    <div>
-                        <h4>Localisation</h4>
-                        <p>Yaounde-Cameroun</p>
+
+                    <div class="availability-card">
+                        <div class="availability-header">
+                            <span class="availability-dot"></span>
+                            <span class="availability-text">Disponible pour des opportunités</span>
+                        </div>
+                        <p class="availability-desc">Je suis actuellement à la recherche d'un stage en cybersécurité pour septembre 2024. N'hésitez pas à me contacter !</p>
+                    </div>
+
+                    <div class="response-time">
+                        <span class="response-dot"></span>
+                        <span class="response-text">Temps de réponse moyen: 24h</span>
                     </div>
                 </div>
             </div>
@@ -725,84 +962,82 @@
     </section>
 
     <!-- Footer -->
-    <footer>
-        <div class="social-links">
-            <a href="#">GitHub</a>
-            <a href="#">LinkedIn</a>
-            <a href="#">Twitter</a>
-            <a href="#">Email</a>
+    <footer class="footer">
+        <div class="matrix-bg" id="matrix-bg"></div>
+        
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#hero" class="footer-logo">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                        <span class="footer-logo-text" id="footer-logo">Alex.Dev</span>
+                    </a>
+                    <p class="footer-desc">Étudiant en cybersécurité passionné par la protection des systèmes et le développement d'applications sécurisées.</p>
+                </div>
+
+                <div class="footer-links">
+                    <h4 class="footer-title">Navigation rapide</h4>
+                    <div class="footer-nav">
+                        <a href="#hero">Accueil</a>
+                        <a href="#about">À propos</a>
+                        <a href="#skills">Compétences</a>
+                        <a href="#projects">Projets</a>
+                        <a href="#contact">Contact</a>
+                    </div>
+                </div>
+
+                <div class="footer-tech">
+                    <h4 class="footer-title">Technologies utilisées</h4>
+                    <div class="tech-list">
+                        <div class="tech-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16 18 22 12 16 6"></polyline>
+                                <polyline points="8 6 2 12 8 18"></polyline>
+                            </svg>
+                            <span>HTML/CSS</span>
+                        </div>
+                        <div class="tech-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="4 17 10 11 4 5"></polyline>
+                                <line x1="12" y1="19" x2="20" y2="19"></line>
+                            </svg>
+                            <span>JavaScript</span>
+                        </div>
+                        <div class="tech-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            </svg>
+                            <span>Tailwind</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-bottom">
+                <p class="copyright">© <span id="current-year">2024</span> Alex.Dev. Tous droits réservés.</p>
+                <p class="made-with">
+                    Designed with 
+                    <svg class="heart-icon" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                    and
+                    <svg class="code-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="16 18 22 12 16 6"></polyline>
+                        <polyline points="8 6 2 12 8 18"></polyline>
+                    </svg>
+                </p>
+                <div class="system-status">
+                    <span class="status-indicator"></span>
+                    <span class="status-text">System Operational</span>
+                </div>
+            </div>
         </div>
-        <p>&copy; 2026 Jonathan MENGOULA | Cybersécurité & Réseau</p>
-        <p style="opacity: 0.5; margin-top: 0.5rem;">Conçu avec passion pour la sécurité informatique</p>
     </footer>
 
-    <script>
-        // Matrix Rain Effect
-        const canvas = document.getElementById('matrix-bg');
-        const ctx = canvas.getContext('2d');
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
-        const fontSize = 14;
-        const columns = canvas.width / fontSize;
-        const drops = Array(Math.floor(columns)).fill(1);
-
-        function drawMatrix() {
-            ctx.fillStyle = 'rgba(10, 14, 39, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            ctx.fillStyle = '#00ff41';
-            ctx.font = fontSize + 'px monospace';
-
-            for (let i = 0; i < drops.length; i++) {
-                const text = chars[Math.floor(Math.random() * chars.length)];
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                drops[i]++;
-            }
-        }
-
-        setInterval(drawMatrix, 35);
-
-        // Smooth Scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('section').forEach(section => {
-            observer.observe(section);
-        });
-
-        // Responsive canvas
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
